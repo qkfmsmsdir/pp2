@@ -10,12 +10,12 @@ def set_korean_font():
     if os.path.exists(font_path):
         font_prop = font_manager.FontProperties(fname=font_path)
         rcParams['font.family'] = font_prop.get_name()
+        print(f"폰트 '{font_prop.get_name()}' 적용 성공")
     else:
         # 폰트 파일이 없으면 기본 설정 사용
         rcParams['font.family'] = 'DejaVu Sans'
+        print("폰트 파일을 찾지 못해 'DejaVu Sans'를 사용합니다.")
     rcParams['axes.unicode_minus'] = False  # 음수 기호 깨짐 방지
-
-set_korean_font()
 
 # 점수 관리: 세션 상태를 활용해 안정적으로 점수를 저장/로드
 if "results" not in st.session_state:
@@ -200,3 +200,5 @@ elif page == "통합교과":
     quiz_page("통합교과")
 elif page == "점수 확인":
     score_page()
+    
+    
