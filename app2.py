@@ -1,15 +1,13 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-from matplotlib import rcParams, font_manager
 import os
 
-# 한글 폰트 설정 (배포환경 포함)
-def set_korean_font():
-    font_path = "./NanumGothic.ttf"  # 프로젝트 폴더에 저장된 나눔고딕 폰트 파일
-    if os.path.exists(font_path):
-        font_prop = font_manager.FontProperties(fname=font_path)
-        rcParams['font.family'] = font_prop.get_name()
+import matplotlib.font_manager as fm
+
+plt.rcParams['font.family'] = 'Malgun Gothic'
+plt.rcParams['axes.unicode_minus'] = False
+
 
 # 점수 관리: 세션 상태를 활용해 안정적으로 점수를 저장/로드
 if "results" not in st.session_state:
