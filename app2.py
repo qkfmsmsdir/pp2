@@ -246,50 +246,60 @@ def score_page():
            st.write(f"2. {question2}")
 
 
-# 메뉴 스타일 커스터마이징
-# 사이드바 메뉴 스타일 커스터마이징
+# 사이드바 버튼 스타일 적용
 st.markdown(
     """
     <style>
-    /* 사이드바 메뉴 스타일 */
-    .sidebar-radio label {
-        font-size: 18px !important; /* 메뉴 글씨 크기 */
-        line-height: 2.5 !important; /* 메뉴 줄 간격 */
-    }
-
-    /* 선택된 메뉴 강조 */
-    .sidebar-radio .st-bn {
-        background-color: #ffe680 !important; /* 선택된 메뉴 배경색 */
-        font-weight: bold !important; /* 글씨 굵게 */
-        color: black !important; /* 글씨 색상 */
+    .sidebar-button {
+        font-size: 18px; /* 글씨 크기 */
+        height: 50px; /* 버튼 높이 */
+        width: 100%; /* 버튼 너비 */
+        margin-bottom: 10px; /* 버튼 간 간격 */
+        text-align: center; /* 텍스트 가운데 정렬 */
+        background-color: #f0f0f0; /* 버튼 배경색 */
+        color: black; /* 글씨 색상 */
+        border: 1px solid #ddd; /* 테두리 */
         border-radius: 5px; /* 모서리 둥글게 */
-        padding: 5px 10px; /* 선택된 메뉴 여백 */
+        cursor: pointer; /* 커서 포인터 */
     }
-
-    /* 일반 메뉴 항목 */
-    .sidebar-radio .st-bo {
-        background-color: #f9f9f9 !important; /* 기본 배경색 */
-        font-weight: normal !important; /* 일반 글씨 */
-        color: black !important; /* 기본 글씨 색상 */
+    .sidebar-button:hover {
+        background-color: #ffe680; /* 마우스 오버 시 배경색 */
+    }
+    .sidebar-button-selected {
+        background-color: #ffd700; /* 선택된 버튼 배경색 */
+        font-weight: bold; /* 글씨 굵게 */
+        border: 2px solid #ffa500; /* 강조된 테두리 */
     }
     </style>
     """,
     unsafe_allow_html=True
 )
 
-# 사이드바 메뉴 항목 정의
+# 사이드바 버튼 생성 함수
+def sidebar_button(label, key):
+    is_selected = st.session_state.get("selected_menu", "") == label
+    button_class = "sidebar-button-selected" if is_selected else "sidebar-button"
+    return st.sidebar.markdown(
+        f'<div class="{button_class}" onclick="window.location.reload();">{label}</div>',
+        unsafe_allow_html=True,
+    )
+
+# 메뉴 항목 정의
 menu_items = ["2학년 공부를 돌아봐", "📝국어", "🔢수학", "✨통합교과", "📊점수 확인"]
 
-# 사이드바 메뉴 렌더링
-selected_menu = st.sidebar.radio(
-    "📂 페이지 선택",
-    menu_items,
-    index=menu_items.index(st.session_state.get("selected_menu", menu_items[0])),
-    key="selected_menu",
-    help="원하는 페이지를 선택하세요.",
-)
+# 선택된 메뉴 상태 관리
+if "selected_menu" not in st.session_state:
+    st.session_state["selected_menu"] = menu_items[0]
 
-# 선택된 페이지에 따라 내용 렌더링
+# 사이드바 버튼 렌더링
+st.sidebar.title("메뉴")
+for item in menu_items:
+    if sidebar_button(item, key=f"menu_{item}"):
+        st.session_state["selected_menu"] = item
+
+# 선택된 메뉴에 따라 페이지 렌더링
+selected_menu = st.session_state["selected_menu"]
+
 if selected_menu == "2학년 공부를 돌아봐":
     start_page()
 elif selected_menu == "📝국어":
@@ -300,3 +310,4 @@ elif selected_menu == "✨통합교과":
     quiz_page("✨통합교과")
 elif selected_menu == "📊점수 확인":
     score_page()
+
