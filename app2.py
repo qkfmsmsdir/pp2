@@ -75,21 +75,13 @@ quiz_data = {
 
 # 시작 페이지
 def start_page():
-    st.title("선배가 알려주는 초 2 생활 꿀팁 🌟")
-    st.subheader("2학년 공부를 돌아봐요!")
+    st.title("⋆˚🐝˖°선배가 알려주는 초 2 생활 꿀팁₊˚🍯‧₊˚ ⋅")
+    st.subheader("[3차시]2학년 공부를 돌아봐")
     st.write("""
         2학년 때 배운 내용을 돌아보고 후배들에게 도움을 줄 방법을 생각해 봅시다.
         오른쪽 메뉴에서 **국어**, **수학**, **통합교과** 문제를 모두 풀고 제출해주세요.
         모든 문제를 푼 뒤 **점수 확인 페이지**에서 점수를 확인하세요.
     """)
-
-    # 귀여운 장식용 이미지 추가 (Streamlit 기본 제공 이모지 활용 가능)
-    st.image(
-        "https://user-images.githubusercontent.com/10706344/123456769-92e47f00-d611-11eb-9a85-bc6d0a133cfa.png",
-        caption="2학년 화이팅!",
-        use_column_width=True
-    )
-
 
 
 # 과목별 퀴즈 페이지
