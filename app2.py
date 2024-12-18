@@ -66,7 +66,7 @@ def quiz_page(subject):
             answer = st.radio(
                 "정답을 선택하세요.", 
                 question["options"], 
-                key=f"{subject}_{idx"],
+                key=f"{subject}_{idx}"],
                 label_visibility="collapsed"
             )
             st.markdown("<style>div.row-widget label { font-size:18px; line-height:1.8; }</style>", unsafe_allow_html=True)
