@@ -2,8 +2,10 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import os
-import koreanize_matplotlib
-
+from matplotlib import font_manager, rc
+font_path = "NanumGothic.ttf"  # Windows의 일반적인 경로
+font_manager.fontManager.addfont(font_path)
+rc('font', family='NanumGothic')
 
 # 점수 관리: 세션 상태를 활용해 안정적으로 점수를 저장/로드
 if "results" not in st.session_state:
