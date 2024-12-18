@@ -10,23 +10,24 @@ rc('font', family='NanumGothic')
 # 페이지 색상 설정 (연한 노란색 배경, 사이드바 포함)
 st.markdown(
     """
-   <style>
-    /* 사이드바 배경색 */
+  <style>
+    /* 사이드바 전체 배경 */
     [data-testid="stSidebar"] {
         background-color: #fffacd !important; /* 연한 노란색 */
     }
 
-    /* 사이드바 글씨 크기 및 줄간격 */
-    [data-testid="stSidebar"] .css-1v3fvcr {
-        font-size: 18px; /* 글씨 크기 */
-        line-height: 1.8; /* 줄 간격 */
-        color: black; /* 텍스트 색상 */
+    /* 사이드바 텍스트 스타일 */
+    [data-testid="stSidebar"] .css-ahz0ki {
+        font-size: 18px !important; /* 글씨 크기 */
+        line-height: 2 !important; /* 줄 간격 */
+        color: black !important; /* 글씨 색상 */
     }
-    
-    /* 사이드바 헤더 스타일 */
-    [data-testid="stSidebar"] h1, [data-testid="stSidebar"] h2, [data-testid="stSidebar"] h3 {
-        font-size: 20px; /* 사이드바 제목 글씨 크기 */
-        color: black;
+
+    /* 사이드바 제목 텍스트 */
+    [data-testid="stSidebar"] .css-10trblm {
+        font-size: 20px !important; /* 제목 크기 */
+        font-weight: bold; /* 굵게 표시 */
+        color: black !important; /* 제목 색상 */
     }
     </style>
     """,
@@ -208,11 +209,32 @@ def score_page():
 
         st.pyplot(fig)
         
-            # 서술식 질문 및 답변 입력
-        st.subheader("질문 및 답변")
-        question1 = st.text_area("1. 어떤 과목의 문제가 가장 어려웠나요?")
-        question2 = st.text_area("2. 후배들이 그 과목을 잘 공부하려면 어떤 도움이 필요할까요?")
+  # 서술식 질문 및 답변 입력
+st.markdown(
+    """
+    <style>
+    /* 질문 텍스트 스타일 */
+    .question-text {
+        font-size: 18px; /* 질문 글씨 크기 */
+        font-weight: bold; /* 글씨 굵게 */
+        margin-bottom: 10px; /* 입력창과 간격 */
+    }
 
+    /* 입력창 텍스트 스타일 */
+    textarea {
+        font-size: 16px !important; /* 입력창 텍스트 크기 */
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+st.subheader("질문 및 답변")
+st.markdown('<div class="question-text">1. 어떤 과목의 문제가 가장 어려웠나요?</div>', unsafe_allow_html=True)
+question1 = st.text_area("", key="question1")
+
+st.markdown('<div class="question-text">2. 후배들이 그 과목을 잘 공부하려면 어떤 도움이 필요할까요?</div>', unsafe_allow_html=True)
+question2 = st.text_area("", key="question2")
         # 답변 제출 버튼
         if st.button("답변 제출"):
             st.success("답변이 제출되었습니다.")
