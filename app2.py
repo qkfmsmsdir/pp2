@@ -286,10 +286,7 @@ if "selected_menu" not in st.session_state:
 # 메뉴 렌더링
 st.sidebar.title("메뉴")
 for item in menu_items:
-    item_class = "menu-item menu-item-selected" if item == st.session_state["selected_menu"] else "menu-item"
-    if st.sidebar.markdown(
-        f'<div class="{item_class}" onclick="window.location.reload();">{item}</div>', unsafe_allow_html=True
-    ):
+    if st.sidebar.button(item):
         st.session_state["selected_menu"] = item
 
 # 선택된 메뉴에 따른 페이지 라우팅
