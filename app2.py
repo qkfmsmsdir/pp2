@@ -268,24 +268,21 @@ if "selected_menu" not in st.session_state:
 # 메뉴 렌더링
 st.sidebar.title("메뉴")
 for item in menu_items:
-    if st.sidebar.button(
-        item,
-        key=f"menu_{item}",
-        help=f"{item} 페이지로 이동",
+    item_class = "menu-item menu-item-selected" if item == st.session_state["selected_menu"] else "menu-item"
+    if st.sidebar.markdown(
+        f'<div class="{item_class}" onclick="window.location.reload();">{item}</div>', unsafe_allow_html=True
     ):
-        st.session_state["selected_menu"] = item  # 선택된 메뉴 저장
+        st.session_state["selected_menu"] = item
 
-# 선택된 메뉴에 따라 페이지 렌더링
-selected_page = st.session_state["selected_menu"]
-
-if selected_page == "2학년 공부를 돌아봐":
+# 선택된 메뉴에 따른 페이지 라우팅
+if st.session_state["selected_menu"] == "2학년 공부를 돌아봐":
     start_page()
-elif selected_page == "📝국어":
+elif st.session_state["selected_menu"] == "📝국어":
     quiz_page("📝국어")
-elif selected_page == "🔢수학":
+elif st.session_state["selected_menu"] == "🔢수학":
     quiz_page("🔢수학")
-elif selected_page == "✨통합교과":
+elif st.session_state["selected_menu"] == "✨통합교과":
     quiz_page("✨통합교과")
-elif selected_page == "📊점수 확인":
+elif st.session_state["selected_menu"] == "📊점수 확인":
     score_page()
 
