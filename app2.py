@@ -177,7 +177,7 @@ def score_page():
 
         
   # 서술식 질문 및 답변 입력
-    st.subheader("더 생각해 봅시다.")
+ 
     st.markdown(
     """
     <style>
