@@ -245,54 +245,58 @@ def score_page():
            st.write(f"1. {question1}")
            st.write(f"2. {question2}")
 
+
 # 메뉴 스타일 커스터마이징
 st.markdown(
     """
     <style>
-    /* 전체 메뉴 스타일 */
     .menu-container {
-        margin-top: 20px; /* 메뉴와 위 요소 간격 */
+        margin-top: 20px;
     }
-
     .menu-item {
-        font-size: 20px; /* 메뉴 글씨 크기 */
-        line-height: 2.5; /* 줄 간격 */
-        padding: 10px 15px; /* 내부 여백 */
-        border-radius: 5px; /* 모서리 둥글게 */
-        cursor: pointer; /* 클릭 가능 표시 */
+        font-size: 20px;
+        line-height: 2.5;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        text-align: center;
+        margin-bottom: 5px;
+        color: black;
+        background-color: #f9f9f9;
     }
-
     .menu-item:hover {
-        background-color: #f0f0f0; /* 마우스 오버 시 배경색 */
+        background-color: #f0f0f0;
     }
-
     .menu-item-selected {
-        background-color: #ffe680 !important; /* 선택된 메뉴 배경색 (연한 노란색) */
-        font-weight: bold; /* 선택된 메뉴 글씨 굵게 */
-        color: black !important; /* 글씨 색상 */
+        background-color: #ffe680;
+        font-weight: bold;
     }
     </style>
     """,
     unsafe_allow_html=True
 )
 
-# 메뉴 정의 및 클릭 처리
+# 메뉴 항목 리스트
 menu_items = ["2학년 공부를 돌아봐", "📝국어", "🔢수학", "✨통합교과", "📊점수 확인"]
 
-# 현재 선택된 메뉴를 세션 상태로 관리
+# 선택된 메뉴를 세션 상태로 관리
 if "selected_menu" not in st.session_state:
-    st.session_state["selected_menu"] = menu_items[0]  # 기본값 설정
+    st.session_state["selected_menu"] = menu_items[0]
 
 # 메뉴 렌더링
 st.sidebar.title("메뉴")
-for item in menu_items:
-    item_class = "menu-item menu-item-selected" if item == st.session_state["selected_menu"] else "menu-item"
-    if st.sidebar.markdown(
-        f'<div class="{item_class}" onclick="window.location.reload();">{item}</div>', unsafe_allow_html=True
-    ):
-        st.session_state["selected_menu"] = item
+selected_menu = st.sidebar.radio(
+    "",
+    menu_items,
+    index=menu_items.index(st.session_state["selected_menu"]),
+    format_func=lambda x: f"🔹 {x}" if x == st.session_state["selected_menu"] else x
+)
 
-# 선택된 메뉴에 따른 페이지 라우팅
+# 세션 상태 업데이트
+if selected_menu != st.session_state["selected_menu"]:
+    st.session_state["selected_menu"] = selected_menu
+
+# 선택된 메뉴에 따라 페이지 렌더링
 if st.session_state["selected_menu"] == "2학년 공부를 돌아봐":
     start_page()
 elif st.session_state["selected_menu"] == "📝국어":
