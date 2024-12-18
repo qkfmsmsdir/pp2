@@ -87,7 +87,7 @@ def quiz_page(subject):
         for idx, question in enumerate(questions):
             # 문제 폰트 크기와 줄간격 조정
             st.markdown(
-                f"<h3 style='font-size:24px; line-height:2;'>{idx+1}. {question['question']}</h3>", 
+                f"<h3 style='font-size:20px; line-height:2;'>{idx+1}. {question['question']}</h3>", 
                 unsafe_allow_html=True
             )
             # 선택지 폰트 크기와 줄간격 조정
@@ -97,7 +97,7 @@ def quiz_page(subject):
                 index=None,
                 key=f"{subject}_{idx}"
             )
-            st.markdown("<style>div.row-widget label { font-size:18px; line-height:1.8; }</style>", unsafe_allow_html=True)
+            st.markdown("<style>div.row-widget label { font-size:20px; line-height:1.8; }</style>", unsafe_allow_html=True)
             user_answers.append((answer, question["answer"]))
 
         submitted = st.form_submit_button("제출")
