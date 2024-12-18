@@ -130,13 +130,23 @@ def score_page():
 
         # 점수표 출력 (HTML 스타일 그대로 유지)
         st.subheader("과목별 점수표")
-    
-        # 점수 그래프 출력 (기존 그래프 스타일 유지)
-        st.subheader("과목별 점수 기호 그래프")
-        fig, ax = plt.subplots(figsize=(10, 6))
-
-        subjects = df["과목"]
-        scores = df["점수"]
+        table_style = """
+        <style>
+        .table {
+            width: 80%;  /* 표 너비 */
+            margin: auto; /* 가운데 정렬 */
+            font-size: 20px; /* 글씨 크기 */
+            text-align: center; /* 텍스트 가운데 정렬 */
+            border-collapse: collapse; /* 테이블 경계 병합 */
+        }
+        .table th, .table td {
+            border: 1px solid black; /* 테이블 경계선 */
+            padding: 8px; /* 여백 */
+        }
+        </style>
+        """
+        st.markdown(table_style, unsafe_allow_html=True)
+        st.write(df.to_html(index=False, justify='center', classes='table', border=0), unsafe_allow_html=True)
 
         # 수직 막대 그래프 (색상, 스타일 유지)
         bar_width = 0.6
@@ -149,7 +159,7 @@ def score_page():
         # 각 칸에 점수 기호 ○ 표시
         for i, score in enumerate(scores):
             for j in range(score):
-                ax.text(i, j + 0.5, "○", ha="center", va="center", fontsize=50, color="blue")
+                ax.text(i, j + 0.5, "○", ha="center", va="center", fontsize=40, color="blue")
 
         # Y축 눈금 설정 및 격자선 추가
         max_score = max(scores)
