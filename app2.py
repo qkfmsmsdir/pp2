@@ -18,10 +18,9 @@ st.markdown(
 
    /* 사이드바 글씨 크기 및 줄 간격 */
     [data-testid="stSidebar"] .css-1v3fvcr {
-        font-size: 18px !important; /* 글씨 크기 */
-        line-height: 1.8 !important; /* 줄 간격 */
-        color: black !important; /* 글씨 색상 */
-    }
+        font-size: 20px; /* 글씨 크기 */
+        line-height: 3; /* 줄 간격 */
+        color: blac; /* 글씨 색상 */
     }
     </style>
     """,
