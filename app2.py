@@ -83,8 +83,8 @@ def start_page():
         """
         <div style="font-size:18px; line-height:1.8; text-align:left;">
             2학년 때 배운 내용을 돌아보고 후배들에게 도움을 줄 방법을 생각해 봅시다.<br><br>
-            오른쪽 메뉴에서 <b>국어</b>, <b>수학</b>, <b>통합교과</b> 문제를 모두 풀고 제출해주세요.<br><br>
-            모든 문제를 푼 뒤 <b>점수 확인 페이지</b>에서 점수를 확인하세요.
+            1. 오른쪽 메뉴에서 <b>국어</b>, <b>수학</b>, <b>통합교과</b> 문제를 모두 풀고 제출해주세요.<br><br>
+            2. 모든 문제를 푼 뒤 <b>점수 확인 페이지</b>에서 점수를 확인하세요.
         </div>
         """,
         unsafe_allow_html=True
@@ -215,7 +215,7 @@ def score_page():
 st.sidebar.title("메뉴")
 page = st.sidebar.radio(
     "페이지 선택",
-    ["시작 페이지", "📝국어", "🔢수학", "✨통합교과", "점수 확인"]
+    ["시작 페이지", "📝국어", "🔢수학", "✨통합교과", "📊점수 확인"]
 )
 
 if page == "시작 페이지":
@@ -226,6 +226,6 @@ elif page == "🔢수학":
     quiz_page("🔢수학")
 elif page == "✨통합교과":
     quiz_page("✨통합교과")
-elif page == "점수 확인":
+elif page == "📊점수 확인":
     score_page()
 
