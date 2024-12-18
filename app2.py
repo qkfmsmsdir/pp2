@@ -57,9 +57,19 @@ def quiz_page(subject):
 
     with st.form(f"{subject}_quiz_form"):
         for idx, question in enumerate(questions):
-            # 문제 폰트 크기 조정
-            st.markdown(f"<h3 style='font-size:24px;'>{idx+1}. {question['question']}</h3>", unsafe_allow_html=True)
-            answer = st.radio("정답을 선택하세요.", question["options"], key=f"{subject}_{idx}")
+            # 문제 폰트 크기와 줄간격 조정
+            st.markdown(
+                f"<h3 style='font-size:24px; line-height:2;'>{idx+1}. {question['question']}</h3>", 
+                unsafe_allow_html=True
+            )
+            # 선택지 폰트 크기와 줄간격 조정
+            answer = st.radio(
+                "정답을 선택하세요.", 
+                question["options"], 
+                key=f"{subject}_{idx"],
+                label_visibility="collapsed"
+            )
+            st.markdown("<style>div.row-widget label { font-size:18px; line-height:1.8; }</style>", unsafe_allow_html=True)
             user_answers.append((answer, question["answer"]))
 
         submitted = st.form_submit_button("제출")
@@ -108,15 +118,27 @@ elif selected_menu == "✨통합교과":
 elif selected_menu == "📊점수 확인":
     score_page()
 
-# 사이드바 버튼 스타일 추가
+# 스타일 추가
 st.markdown(
     """
     <style>
+    /* 사이드바 배경색 */
+    [data-testid="stSidebar"] {
+        background-color: #fffacd; /* 연한 노란색 */
+    }
+
+    /* 사이드바 버튼 스타일 */
     div.stButton > button {
-        width: 100%; /* 버튼 너비 설정 */
-        height: 50px; /* 버튼 높이 설정 */
+        background-color: #ffd700; /* 버튼 배경색 (진한 노란색) */
+        color: black; /* 버튼 글씨 색 */
         font-size: 18px; /* 버튼 글씨 크기 */
+        height: 50px; /* 버튼 높이 */
+        width: 100%; /* 버튼 너비 */
         margin-bottom: 10px; /* 버튼 간 간격 */
+        border-radius: 5px; /* 모서리 둥글게 */
+    }
+    div.stButton > button:hover {
+        background-color: #ffc107; /* 마우스 오버 색상 */
     }
     </style>
     """,
