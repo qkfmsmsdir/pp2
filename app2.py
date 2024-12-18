@@ -128,7 +128,7 @@ st.markdown(
 
     /* 사이드바 버튼 스타일 */
     div.stButton > button {
-        background-color: #ffd700; /* 버튼 배경색 (진한 노란색) */
+        background-color: #FFF173; /* 버튼 배경색 (진한 노란색) */
         color: black; /* 버튼 글씨 색 */
         font-size: 18px; /* 버튼 글씨 크기 */
         height: 50px; /* 버튼 높이 */
