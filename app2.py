@@ -64,10 +64,9 @@ def quiz_page(subject):
             )
             # 선택지 폰트 크기와 줄간격 조정
             answer = st.radio(
-                "정답을 선택하세요.", 
-                question["options"], 
-                key=f"{subject}_{idx}"],
-                label_visibility="collapsed"
+                "정답을 선택하세요.",
+                question["options"],
+                key=f"{subject}_{idx}"
             )
             st.markdown("<style>div.row-widget label { font-size:18px; line-height:1.8; }</style>", unsafe_allow_html=True)
             user_answers.append((answer, question["answer"]))
