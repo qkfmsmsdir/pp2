@@ -2,11 +2,7 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import os
-
-import matplotlib.font_manager as fm
-
-plt.rcParams['font.family'] = 'Malgun Gothic'
-plt.rcParams['axes.unicode_minus'] = False
+import koreanize_matplotlib
 
 
 # 점수 관리: 세션 상태를 활용해 안정적으로 점수를 저장/로드
