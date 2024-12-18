@@ -10,17 +10,17 @@ rc('font', family='NanumGothic')
 # 페이지 색상 설정 (연한 노란색 배경, 사이드바 포함)
 st.markdown(
     """
-    /* 사이드바 배경 색상 */
+    #사이드바 배경 색상
     [data-testid="stSidebar"] {
-        background-color: #fffacd; /* 연한 노란색 */
+        background-color: #fffacd
     }
 
-    /* 사이드바 텍스트 색상 */
+    #
     [data-testid="stSidebar"] .css-1v3fvcr {
-        color: black; /* 텍스트 색상 설정 */
+        color: black;
     }
 
-    /* 사이드바 내부 콘텐츠 간격 조정 */
+    #사이드바 내부 콘텐츠 간격 조정
     [data-testid="stSidebar"] .css-1v3fvcr {
         margin: 10px;
     }
