@@ -279,7 +279,7 @@ if "selected_menu" not in st.session_state:
     st.session_state["selected_menu"] = menu_items[0]
 
 # 메뉴 렌더링
-st.sidebar.title("초 2 생활 꿀팁🍯‧₊˚"")
+st.sidebar.title("초 2 생활 꿀팁🍯‧₊˚")
 for item in menu_items:
     is_selected = st.session_state["selected_menu"] == item
     button_class = "menu-item menu-item-selected" if is_selected else "menu-item"
