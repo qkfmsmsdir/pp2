@@ -166,7 +166,7 @@ def score_page():
         # 각 칸에 점수 기호 ○ 표시
         for i, score in enumerate(scores):
             for j in range(score):
-                ax.text(i, j + 0.5, "○", ha="center", va="center", fontsize=50, color="blue")
+                ax.text(i, j + 0.5, "○", ha="center", va="center", fontsize=40, color="blue")
 
         # Y축 눈금 설정 및 격자선 추가
         max_score = max(scores)
