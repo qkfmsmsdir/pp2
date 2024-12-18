@@ -7,22 +7,27 @@ font_path = "NanumGothic.ttf"  # Windows의 일반적인 경로
 font_manager.fontManager.addfont(font_path)
 rc('font', family='NanumGothic')
 
-# 페이지 색상 설정 (연한 노란색)
+# 페이지 색상 설정 (연한 노란색 배경, 사이드바 포함)
 st.markdown(
     """
-    <style>
-    body {
+    /* 사이드바 배경 색상 */
+    [data-testid="stSidebar"] {
         background-color: #fffacd; /* 연한 노란색 */
     }
-    .sidebar .sidebar-content {
-        background-color: #fffacd;
+
+    /* 사이드바 텍스트 색상 */
+    [data-testid="stSidebar"] .css-1v3fvcr {
+        color: black; /* 텍스트 색상 설정 */
+    }
+
+    /* 사이드바 내부 콘텐츠 간격 조정 */
+    [data-testid="stSidebar"] .css-1v3fvcr {
+        margin: 10px;
     }
     </style>
     """,
     unsafe_allow_html=True
 )
-
-
 # 점수 관리: 세션 상태를 활용해 안정적으로 점수를 저장/로드
 if "results" not in st.session_state:
     st.session_state["results"] = {}
@@ -215,10 +220,10 @@ def score_page():
 st.sidebar.title("메뉴")
 page = st.sidebar.radio(
     "페이지 선택",
-    ["시작 페이지", "📝국어", "🔢수학", "✨통합교과", "📊점수 확인"]
+    ["2학년 공부를 돌아봐", "📝국어", "🔢수학", "✨통합교과", "📊점수 확인"]
 )
 
-if page == "시작 페이지":
+if page == "2학년 공부를 돌아봐":
     start_page()
 elif page == "📝국어":
     quiz_page("📝국어")
