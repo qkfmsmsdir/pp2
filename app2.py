@@ -148,6 +148,13 @@ def score_page():
         st.markdown(table_style, unsafe_allow_html=True)
         st.write(df.to_html(index=False, justify='center', classes='table', border=0), unsafe_allow_html=True)
 
+        # 점수 그래프 출력 (기존 그래프 스타일 유지)
+        st.subheader("과목별 점수 기호 그래프")
+        fig, ax = plt.subplots(figsize=(10, 6))
+
+        subjects = df["과목"]
+        scores = df["점수"]
+
         # 수직 막대 그래프 (색상, 스타일 유지)
         bar_width = 0.6
         ax.bar(subjects, scores, color="white", edgecolor="white", width=bar_width)
@@ -159,7 +166,7 @@ def score_page():
         # 각 칸에 점수 기호 ○ 표시
         for i, score in enumerate(scores):
             for j in range(score):
-                ax.text(i, j + 0.5, "○", ha="center", va="center", fontsize=40, color="blue")
+                ax.text(i, j + 0.5, "○", ha="center", va="center", fontsize=50, color="blue")
 
         # Y축 눈금 설정 및 격자선 추가
         max_score = max(scores)
@@ -217,7 +224,7 @@ menu_items = ["2학년 공부를 돌아봐", "📝국어", "🔢수학", "✨통
 if "selected_menu" not in st.session_state:
     st.session_state["selected_menu"] = menu_items[0]
 
-st.sidebar.title("초 2 생활 꿀팁🍯‧₊˚")
+st.sidebar.title("메뉴")
 for item in menu_items:
     button_clicked = st.sidebar.button(item, key=item)
     if button_clicked:
