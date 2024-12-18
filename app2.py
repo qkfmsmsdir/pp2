@@ -113,24 +113,19 @@ def quiz_page(subject):
 
 def score_page():
     st.title("📊 점수 확인")
+    
+    # 점수가 없을 때 경고 메시지 표시
     if not st.session_state["results"]:
         st.warning("점수가 없습니다.")
-    else:
-        df = pd.DataFrame(list(st.session_state["results"].items()), columns=["과목", "점수"])
-        st.table(df)
-    if st.button("점수 초기화"):
-        reset_results()
-        st.success("점수가 초기화되었습니다.")
- # 저장된 점수 표시
-    if not st.session_state["results"]:
-        st.warning("저장된 점수가 없습니다.")
-    else:
-        results = st.session_state["results"]
-        df = pd.DataFrame(list(results.items()), columns=["과목", "점수"])
-
-        # 점수표 출력 (HTML 스타일 그대로 유지)
-        st.subheader("과목별 점수표")
-        table_style = """
+        return  # 함수 종료
+    
+    # 점수 데이터 생성
+    results = st.session_state["results"]
+    df = pd.DataFrame(list(results.items()), columns=["과목", "점수"])
+    
+    # 점수표 출력 (HTML로 표시)
+    st.markdown(
+        """
         <style>
         .table {
             width: 80%;  /* 표 너비 */
@@ -144,10 +139,15 @@ def score_page():
             padding: 8px; /* 여백 */
         }
         </style>
-        """
-        st.markdown(table_style, unsafe_allow_html=True)
-        st.write(df.to_html(index=False, justify='center', classes='table', border=0), unsafe_allow_html=True)
-
+        """,
+        unsafe_allow_html=True
+    )
+    st.markdown(df.to_html(index=False, justify='center', classes='table', border=0), unsafe_allow_html=True)
+    
+    # 점수 초기화 버튼
+    if st.button("점수 초기화"):
+        reset_results()
+        st.success("점수가 초기화되었습니다.")
         # 점수 그래프 출력 (기존 그래프 스타일 유지)
         st.subheader("과목별 점수 기호 그래프")
         fig, ax = plt.subplots(figsize=(10, 6))
