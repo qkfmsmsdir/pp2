@@ -16,14 +16,12 @@ st.markdown(
         background-color: #fffacd
     }
 
-    /*사이드바 텍스트 색상*/
+   /* 사이드바 글씨 크기 및 줄 간격 */
     [data-testid="stSidebar"] .css-1v3fvcr {
-        color: black;
+        font-size: 18px !important; /* 글씨 크기 */
+        line-height: 1.8 !important; /* 줄 간격 */
+        color: black !important; /* 글씨 색상 */
     }
-
-    /*사이드바 내부 콘텐츠 간격 조정*/
-    [data-testid="stSidebar"] .css-1v3fvcr {
-        margin: 10px;
     }
     </style>
     """,
