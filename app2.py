@@ -4,40 +4,9 @@ import matplotlib.pyplot as plt
 from matplotlib import font_manager, rc
 
 # 글꼴 설정
-font_path = "NanumGothic.ttf"  # Windows의 일반적인 경로
+font_path = "NanumGothic.ttf"
 font_manager.fontManager.addfont(font_path)
 rc('font', family='NanumGothic')
-
-# 사이드바 버튼 스타일 정의
-st.markdown(
-    """
-    <style>
-    /* 사이드바 버튼 스타일 */
-    .sidebar-button {
-        display: flex;
-        align-items: center; /* 세로 정렬 가운데 */
-        justify-content: center; /* 가로 정렬 가운데 */
-        height: 50px; /* 버튼 높이 */
-        font-size: 18px; /* 버튼 글꼴 크기 */
-        color: black; /* 글꼴 색상 */
-        background-color: #f0f0f0; /* 기본 배경색 */
-        margin-bottom: 10px; /* 버튼 간 간격 */
-        border: 1px solid #ddd; /* 테두리 */
-        border-radius: 5px; /* 둥근 모서리 */
-        cursor: pointer; /* 커서 포인터 */
-    }
-    .sidebar-button:hover {
-        background-color: #ffe680; /* 마우스 오버 배경색 */
-    }
-    .sidebar-button-selected {
-        background-color: #ffd700; /* 선택된 버튼 배경색 */
-        font-weight: bold; /* 선택된 버튼 글씨 굵게 */
-        border: 2px solid #ffa500; /* 강조된 테두리 */
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
 
 # 점수 관리
 if "results" not in st.session_state:
@@ -88,7 +57,8 @@ def quiz_page(subject):
 
     with st.form(f"{subject}_quiz_form"):
         for idx, question in enumerate(questions):
-            st.markdown(f"### 문제 {idx+1}: {question['question']}")
+            # 문제 폰트 크기 조정
+            st.markdown(f"<h3 style='font-size:24px;'>{idx+1}. {question['question']}</h3>", unsafe_allow_html=True)
             answer = st.radio("정답을 선택하세요.", question["options"], key=f"{subject}_{idx}")
             user_answers.append((answer, question["answer"]))
 
@@ -121,15 +91,11 @@ if "selected_menu" not in st.session_state:
 
 st.sidebar.title("메뉴")
 for item in menu_items:
-    is_selected = st.session_state["selected_menu"] == item
-    button_class = "sidebar-button-selected" if is_selected else "sidebar-button"
-    if st.sidebar.markdown(
-        f'<div class="{button_class}" onclick="window.location.reload();">{item}</div>',
-        unsafe_allow_html=True,
-    ):
+    button_clicked = st.sidebar.button(item, key=item)
+    if button_clicked:
         st.session_state["selected_menu"] = item
 
-# 선택된 메뉴에 따른 페이지 렌더링
+# 선택된 메뉴에 따라 페이지 렌더링
 selected_menu = st.session_state["selected_menu"]
 if selected_menu == "2학년 공부를 돌아봐":
     start_page()
@@ -141,3 +107,18 @@ elif selected_menu == "✨통합교과":
     quiz_page("✨통합교과")
 elif selected_menu == "📊점수 확인":
     score_page()
+
+# 사이드바 버튼 스타일 추가
+st.markdown(
+    """
+    <style>
+    div.stButton > button {
+        width: 100%; /* 버튼 너비 설정 */
+        height: 50px; /* 버튼 높이 설정 */
+        font-size: 18px; /* 버튼 글씨 크기 */
+        margin-bottom: 10px; /* 버튼 간 간격 */
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
