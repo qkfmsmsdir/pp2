@@ -248,49 +248,47 @@ def score_page():
 st.markdown(
     """
     <style>
-    .menu-container {
-        margin-top: 20px;
-    }
     .menu-item {
         font-size: 20px;
         line-height: 2.5;
         padding: 10px 15px;
         border-radius: 5px;
         cursor: pointer;
+        text-align: center;
+        margin-bottom: 5px;
+        color: black;
+        background-color: #f9f9f9;
     }
     .menu-item:hover {
         background-color: #f0f0f0;
     }
     .menu-item-selected {
-        background-color: #ffe680 !important;
+        background-color: #ffe680;
         font-weight: bold;
-        color: black !important;
     }
     </style>
     """,
     unsafe_allow_html=True
 )
 
-# 메뉴 정의
+# 메뉴 항목 리스트
 menu_items = ["2학년 공부를 돌아봐", "📝국어", "🔢수학", "✨통합교과", "📊점수 확인"]
 
-# 현재 선택된 메뉴 추적
+# 선택된 메뉴를 세션 상태로 관리
 if "selected_menu" not in st.session_state:
     st.session_state["selected_menu"] = menu_items[0]
 
 # 메뉴 렌더링
-st.sidebar.title("초 2 생활 꿀팁🍯‧₊˚")
+st.sidebar.title("메뉴")
 for item in menu_items:
-    is_selected = st.session_state["selected_menu"] == item
-    button_class = "menu-item menu-item-selected" if is_selected else "menu-item"
-
-    # 메뉴 항목 클릭 처리
-    if st.sidebar.markdown(
-        f'<div class="{button_class}" onclick="window.location.reload();">{item}</div>', unsafe_allow_html=True
+    if st.sidebar.button(
+        item,
+        key=f"menu_{item}",
+        help=f"{item} 페이지로 이동",
     ):
-        st.session_state["selected_menu"] = item
+        st.session_state["selected_menu"] = item  # 선택된 메뉴 저장
 
-# 페이지 라우팅
+# 선택된 메뉴에 따라 페이지 렌더링
 selected_page = st.session_state["selected_menu"]
 
 if selected_page == "2학년 공부를 돌아봐":
@@ -303,3 +301,4 @@ elif selected_page == "✨통합교과":
     quiz_page("✨통합교과")
 elif selected_page == "📊점수 확인":
     score_page()
+
