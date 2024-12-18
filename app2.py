@@ -43,7 +43,7 @@ quiz_data = {
         {"question": "1m는 몇 cm입니까?", "options": ["100cm", "10cm", "1000cm"], "answer": "100cm"},
         {"question": "6572부터 100씩 5번 뛰어 센 수는 얼마일까요?", "options": ["7072", "7272", "7172"], "answer": "7072"},
         {"question": "곱셈식을 계산하세요. 8x0=?", "options": ["0", "8", "1"], "answer": "0"},
-        {"question": "2일은 몇 시간인가요?","options":["24시간","48시간","50시간"],"answer":"48시간간"},
+        {"question": "2일은 몇 시간인가요?","options":["24시간","48시간","50시간"],"answer":"48시간"},
         {"question": "곱셈식을 계산하세요.6x7=", "options":["35","28","42"],"answer":"42"}
     ],
     "📝국어": [
@@ -56,7 +56,7 @@ quiz_data = {
         {"question": "1학년 때 입었던 옷이 이제는 (작아요/적어요).", "options": ["작아요", "적어요"], "answer": "작아요"},
         {"question": "느낌이나 마음이 어수선할 때 (   )고 합니다.", "options": ["뒤숭숭하다", "벅차다"], "answer": "뒤숭숭하다"},
         {"question": "다음 중 조언을 하는 방법으로 알맞지 않은 것을 고르세요", "options": ["듣는 사람의 마음에 공감하며 말한다.", "걱정하는 마음을 담아서 말한한다.","명령하듯이 말한다."], "answer": "명령하듯이 말한다."},
-        {"question":"종류에 따라서 나누는 것을 ( )라고 합니다.","options":["부표","분류","더미"],"answer":"분류"}
+        {"question": "종류에 따라서 나누는 것을 ( )라고 합니다.","options": ["부표","분류","더미"],"answer": "분류"}
     ]
 }
 
@@ -92,6 +92,7 @@ def quiz_page(subject):
             answer = st.radio(
                 "알맞은 답을 선택하세요.",
                 question["options"],
+                index=None,
                 key=f"{subject}_{idx}"
             )
             st.markdown("<style>div.row-widget label { font-size:18px; line-height:1.8; }</style>", unsafe_allow_html=True)
@@ -127,24 +128,7 @@ def score_page():
 
         # 점수표 출력 (HTML 스타일 그대로 유지)
         st.subheader("과목별 점수표")
-        table_style = """
-        <style>
-        .table {
-            width: 80%;  /* 표 너비 */
-            margin: auto; /* 가운데 정렬 */
-            font-size: 20px; /* 글씨 크기 */
-            text-align: center; /* 텍스트 가운데 정렬 */
-            border-collapse: collapse; /* 테이블 경계 병합 */
-        }
-        .table th, .table td {
-            border: 1px solid black; /* 테이블 경계선 */
-            padding: 8px; /* 여백 */
-        }
-        </style>
-        """
-        st.markdown(table_style, unsafe_allow_html=True)
-        st.write(df.to_html(index=False, justify='center', classes='table', border=0), unsafe_allow_html=True)
-
+    
         # 점수 그래프 출력 (기존 그래프 스타일 유지)
         st.subheader("과목별 점수 기호 그래프")
         fig, ax = plt.subplots(figsize=(10, 6))
@@ -221,7 +205,7 @@ menu_items = ["2학년 공부를 돌아봐", "📝국어", "🔢수학", "✨통
 if "selected_menu" not in st.session_state:
     st.session_state["selected_menu"] = menu_items[0]
 
-st.sidebar.title("메뉴")
+st.sidebar.title("선배가 알려주는 초 2 생활 꿀팁🍯‧₊˚")
 for item in menu_items:
     button_clicked = st.sidebar.button(item, key=item)
     if button_clicked:
