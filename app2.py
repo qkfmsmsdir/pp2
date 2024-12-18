@@ -113,51 +113,68 @@ def quiz_page(subject):
 
 def score_page():
     st.title("📊 점수 확인")
-    
+
+    # 점수가 없을 때 경고 메시지 표시
+    if not st.session_state["results"]:
+        st.warning("점수가 없습니다.")
+        return  # 점수가 없으면 함수 종료
+
+    # 점수 데이터 생성
+    results = st.session_state["results"]
+    df = pd.DataFrame(list(results.items()), columns=["과목", "점수"])
+
+    # 점수표 출력
+    st.subheader("과목별 점수표")
+    table_style = """
+    <style>
+    .table {
+        width: 80%;  /* 표 너비 */
+        margin: auto; /* 가운데 정렬 */
+        font-size: 20px; /* 글씨 크기 */
+        text-align: center; /* 텍스트 가운데 정렬 */
+        border-collapse: collapse; /* 테이블 경계 병합 */
+    }
+    .table th, .table td {
+        border: 1px solid black; /* 테이블 경계선 */
+        padding: 8px; /* 여백 */
+    }
+    </style>
+    """
+    st.markdown(table_style, unsafe_allow_html=True)
+    st.markdown(df.to_html(index=False, justify='center', classes='table', border=0), unsafe_allow_html=True)
+
+    # 점수 그래프 출력
+    st.subheader("과목별 점수 기호 그래프")
+    fig, ax = plt.subplots(figsize=(10, 6))
+
+    subjects = df["과목"]
+    scores = df["점수"]
+
+    # 수직 막대 그래프
+    ax.bar(subjects, scores, color="white", edgecolor="white", width=0.6)
+
+    # 각 점수 위치에 기호 추가
+    for i, score in enumerate(scores):
+        for j in range(score):
+            ax.text(i, j + 0.5, "○", ha="center", va="center", fontsize=40, color="blue")
+
+    # 그래프 스타일 설정
+    ax.set_ylim(0, max(scores) + 1)
+    ax.set_yticks(range(0, max(scores) + 2))
+    ax.grid(axis='y', color='gray', linestyle='--', linewidth=0.5)
+    ax.set_xticks(range(len(subjects)))
+    ax.set_xticklabels(subjects, fontsize=14, rotation=0)
+    ax.set_xlabel("과목", fontsize=14, color='gray')
+    ax.set_ylabel("점수", fontsize=14, color='gray')
+    ax.set_title("과목별 점수 기호 그래프", fontsize=16)
+
+    st.pyplot(fig)
+
+    # 점수 초기화 버튼
     if st.button("점수 초기화"):
         reset_results()
         st.success("점수가 초기화되었습니다.")
- # 저장된 점수 표시
-    if not st.session_state["results"]:
-        st.warning("저장된 점수가 없습니다.")
-    else:
-        results = st.session_state["results"]
-        df = pd.DataFrame(list(results.items()), columns=["과목", "점수"])
 
-        # 점수 그래프 출력 (기존 그래프 스타일 유지)
-        st.subheader("과목별 점수 기호 그래프")
-        fig, ax = plt.subplots(figsize=(10, 6))
-
-        subjects = df["과목"]
-        scores = df["점수"]
-
-        # 수직 막대 그래프 (색상, 스타일 유지)
-        bar_width = 0.6
-        ax.bar(subjects, scores, color="white", edgecolor="white", width=bar_width)
-
-        # 세로선 추가 (과목 간 경계선)
-        for i in range(len(subjects) + 1):
-            ax.axvline(x=i - 0.5, color="gray", linestyle="--", linewidth=0.5)
-
-        # 각 칸에 점수 기호 ○ 표시
-        for i, score in enumerate(scores):
-            for j in range(score):
-                ax.text(i, j + 0.5, "○", ha="center", va="center", fontsize=40, color="blue")
-
-        # Y축 눈금 설정 및 격자선 추가
-        max_score = max(scores)
-        ax.set_ylim(0, max_score + 1)
-        ax.set_yticks(range(0, max_score + 2))
-        ax.grid(axis='y', color='gray', linestyle='--', linewidth=0.5)
-
-        # 그래프 라벨 및 제목 스타일
-        ax.set_xticklabels(subjects, fontsize=14, rotation=0)
-        ax.tick_params(axis="x", labelsize=14)
-        ax.set_xlabel("과목", color='gray', fontsize=14)
-        ax.set_ylabel("점수", color='gray', fontsize=14)
-        ax.set_title("과목별 점수 기호 그래프", fontsize=16)
-
-        st.pyplot(fig)
         
   # 서술식 질문 및 답변 입력
         st.markdown(
