@@ -247,63 +247,56 @@ def score_page():
 
 
 # 메뉴 스타일 커스터마이징
+# 사이드바 메뉴 스타일 커스터마이징
 st.markdown(
     """
     <style>
-    .menu-container {
-        margin-top: 20px;
+    /* 사이드바 메뉴 스타일 */
+    .sidebar-radio label {
+        font-size: 18px !important; /* 메뉴 글씨 크기 */
+        line-height: 2.5 !important; /* 메뉴 줄 간격 */
     }
-    .menu-item {
-        font-size: 20px;
-        line-height: 2.5;
-        padding: 10px 15px;
-        border-radius: 5px;
-        cursor: pointer;
-        text-align: center;
-        margin-bottom: 5px;
-        color: black;
-        background-color: #f9f9f9;
+
+    /* 선택된 메뉴 강조 */
+    .sidebar-radio .st-bn {
+        background-color: #ffe680 !important; /* 선택된 메뉴 배경색 */
+        font-weight: bold !important; /* 글씨 굵게 */
+        color: black !important; /* 글씨 색상 */
+        border-radius: 5px; /* 모서리 둥글게 */
+        padding: 5px 10px; /* 선택된 메뉴 여백 */
     }
-    .menu-item:hover {
-        background-color: #f0f0f0;
-    }
-    .menu-item-selected {
-        background-color: #ffe680;
-        font-weight: bold;
+
+    /* 일반 메뉴 항목 */
+    .sidebar-radio .st-bo {
+        background-color: #f9f9f9 !important; /* 기본 배경색 */
+        font-weight: normal !important; /* 일반 글씨 */
+        color: black !important; /* 기본 글씨 색상 */
     }
     </style>
     """,
     unsafe_allow_html=True
 )
 
-# 메뉴 항목 리스트
+# 사이드바 메뉴 항목 정의
 menu_items = ["2학년 공부를 돌아봐", "📝국어", "🔢수학", "✨통합교과", "📊점수 확인"]
 
-# 선택된 메뉴를 세션 상태로 관리
-if "selected_menu" not in st.session_state:
-    st.session_state["selected_menu"] = menu_items[0]
-
-# 메뉴 렌더링
-st.sidebar.title("메뉴")
+# 사이드바 메뉴 렌더링
 selected_menu = st.sidebar.radio(
-    "",
+    "📂 페이지 선택",
     menu_items,
-    index=menu_items.index(st.session_state["selected_menu"]),
-    format_func=lambda x: f"🔹 {x}" if x == st.session_state["selected_menu"] else x
+    index=menu_items.index(st.session_state.get("selected_menu", menu_items[0])),
+    key="selected_menu",
+    help="원하는 페이지를 선택하세요.",
 )
 
-# 세션 상태 업데이트
-if selected_menu != st.session_state["selected_menu"]:
-    st.session_state["selected_menu"] = selected_menu
-
-# 선택된 메뉴에 따라 페이지 렌더링
-if st.session_state["selected_menu"] == "2학년 공부를 돌아봐":
+# 선택된 페이지에 따라 내용 렌더링
+if selected_menu == "2학년 공부를 돌아봐":
     start_page()
-elif st.session_state["selected_menu"] == "📝국어":
+elif selected_menu == "📝국어":
     quiz_page("📝국어")
-elif st.session_state["selected_menu"] == "🔢수학":
+elif selected_menu == "🔢수학":
     quiz_page("🔢수학")
-elif st.session_state["selected_menu"] == "✨통합교과":
+elif selected_menu == "✨통합교과":
     quiz_page("✨통합교과")
-elif st.session_state["selected_menu"] == "📊점수 확인":
+elif selected_menu == "📊점수 확인":
     score_page()
