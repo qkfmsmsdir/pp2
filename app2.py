@@ -247,67 +247,28 @@ def score_page():
 
 
 # 사이드바 버튼 스타일 적용
-st.markdown(
-    """
-    <style>
-    .sidebar-button {
-        font-size: 18px; /* 글씨 크기 */
-        height: 50px; /* 버튼 높이 */
-        width: 100%; /* 버튼 너비 */
-        margin-bottom: 10px; /* 버튼 간 간격 */
-        text-align: center; /* 텍스트 가운데 정렬 */
-        background-color: #f0f0f0; /* 버튼 배경색 */
-        color: black; /* 글씨 색상 */
-        border: 1px solid #ddd; /* 테두리 */
-        border-radius: 5px; /* 모서리 둥글게 */
-        cursor: pointer; /* 커서 포인터 */
-    }
-    .sidebar-button:hover {
-        background-color: #ffe680; /* 마우스 오버 시 배경색 */
-    }
-    .sidebar-button-selected {
-        background-color: #ffd700; /* 선택된 버튼 배경색 */
-        font-weight: bold; /* 글씨 굵게 */
-        border: 2px solid #ffa500; /* 강조된 테두리 */
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
 
-# 사이드바 버튼 생성 함수
-def sidebar_button(label, key):
-    is_selected = st.session_state.get("selected_menu", "") == label
-    button_class = "sidebar-button-selected" if is_selected else "sidebar-button"
-    return st.sidebar.markdown(
-        f'<div class="{button_class}" onclick="window.location.reload();">{label}</div>',
-        unsafe_allow_html=True,
-    )
-
-# 메뉴 항목 정의
+# 메뉴 정의 및 클릭 처리
 menu_items = ["2학년 공부를 돌아봐", "📝국어", "🔢수학", "✨통합교과", "📊점수 확인"]
 
-# 선택된 메뉴 상태 관리
+# 현재 선택된 메뉴를 세션 상태로 관리
 if "selected_menu" not in st.session_state:
-    st.session_state["selected_menu"] = menu_items[0]
+    st.session_state["selected_menu"] = menu_items[0]  # 기본값 설정
 
-# 사이드바 버튼 렌더링
+# 메뉴 렌더링
 st.sidebar.title("메뉴")
 for item in menu_items:
-    if sidebar_button(item, key=f"menu_{item}"):
+    if st.sidebar.button(item):
         st.session_state["selected_menu"] = item
 
-# 선택된 메뉴에 따라 페이지 렌더링
-selected_menu = st.session_state["selected_menu"]
-
-if selected_menu == "2학년 공부를 돌아봐":
+# 선택된 메뉴에 따른 페이지 라우팅
+if st.session_state["selected_menu"] == "2학년 공부를 돌아봐":
     start_page()
-elif selected_menu == "📝국어":
+elif st.session_state["selected_menu"] == "📝국어":
     quiz_page("📝국어")
-elif selected_menu == "🔢수학":
+elif st.session_state["selected_menu"] == "🔢수학":
     quiz_page("🔢수학")
-elif selected_menu == "✨통합교과":
+elif st.session_state["selected_menu"] == "✨통합교과":
     quiz_page("✨통합교과")
-elif selected_menu == "📊점수 확인":
+elif st.session_state["selected_menu"] == "📊점수 확인":
     score_page()
-
