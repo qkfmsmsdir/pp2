@@ -15,7 +15,19 @@ st.markdown(
     [data-testid="stSidebar"] {
         background-color: #fffacd !important; /* 연한 노란색 */
     }
+ /* 사이드바 텍스트 스타일 */
+    [data-testid="stSidebar"] .css-ahz0ki {
+        font-size: 18px !important; /* 글씨 크기 */
+        line-height: 2 !important; /* 줄 간격 */
+        color: black !important; /* 글씨 색상 */
+    }
 
+    /* 사이드바 제목 텍스트 */
+    [data-testid="stSidebar"] .css-10trblm {
+        font-size: 20px !important; /* 제목 크기 */
+        font-weight: bold; /* 굵게 표시 */
+        color: black !important; /* 제목 색상 */
+    }
     </style>
     """,
     unsafe_allow_html=True
