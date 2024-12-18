@@ -236,11 +236,11 @@ question1 = st.text_area("", key="question1")
 st.markdown('<div class="question-text">2. 후배들이 그 과목을 잘 공부하려면 어떤 도움이 필요할까요?</div>', unsafe_allow_html=True)
 question2 = st.text_area("", key="question2")
         # 답변 제출 버튼
-        if st.button("답변 제출"):
-            st.success("답변이 제출되었습니다.")
-            st.write("### 제출된 답변:")
-            st.write(f"1. {question1}")
-            st.write(f"2. {question2}")
+if st.button("답변 제출"):
+   st.success("답변이 제출되었습니다.")
+   st.write("### 제출된 답변:")
+   st.write(f"1. {question1}")
+   st.write(f"2. {question2}")
 
 # 페이지 라우팅
 st.sidebar.title("메뉴")
