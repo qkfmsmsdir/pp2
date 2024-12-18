@@ -80,6 +80,8 @@ quiz_data = {
         {"question": "약속시간을 (잊어버려서/잃어버려서) 미안해.", "options": ["잊어버려서", "잃어버려서"], "answer": "잊어버려서"},
         {"question": "1학년 때 입었던 옷이 이제는 (작아요/적어요).", "options": ["작아요", "적어요"], "answer": "작아요"},
         {"question": "느낌이나 마음이 어수선할 때 (   )고 합니다.", "options": ["뒤숭숭하다", "벅차다"], "answer": "뒤숭숭하다"}
+        {"question": "다음 중 조언을 하는 방법으로 알맞지 않은 것을 고르세요", "options": ["듣는 사람의 마음에 공감하며 말한다.", "걱정하는 마음을 담아서 말한한다.","명령하듯이 말한다."], "answer": "명령하듯이 말한다."},
+        {"question":"종류에 따라서 나누는 것을 ( )라고 합니다.","options":["부표","분류","더미"],"answer":"분류"}
     ]
 }
 
@@ -242,21 +244,62 @@ def score_page():
            st.write(f"1. {question1}")
            st.write(f"2. {question2}")
 
-# 페이지 라우팅
-st.sidebar.title("메뉴")
-page = st.sidebar.radio(
-    "페이지 선택",
-    ["2학년 공부를 돌아봐", "📝국어", "🔢수학", "✨통합교과", "📊점수 확인"]
+
+# 메뉴 스타일 커스터마이징
+st.markdown(
+    """
+    <style>
+    /* 전체 메뉴 스타일 */
+    .menu-container {
+        margin-top: 20px; /* 메뉴와 위 요소 간격 */
+    }
+
+    .menu-item {
+        font-size: 20px; /* 메뉴 글씨 크기 */
+        line-height: 2.5; /* 줄 간격 */
+        padding: 10px 15px; /* 내부 여백 */
+        border-radius: 5px; /* 모서리 둥글게 */
+        cursor: pointer; /* 클릭 가능 표시 */
+    }
+
+    .menu-item:hover {
+        background-color: #f0f0f0; /* 마우스 오버 시 배경색 */
+    }
+
+    .menu-item-selected {
+        background-color: #ffe680 !important; /* 선택된 메뉴 배경색 (연한 노란색) */
+        font-weight: bold; /* 선택된 메뉴 글씨 굵게 */
+        color: black !important; /* 글씨 색상 */
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
 )
 
-if page == "2학년 공부를 돌아봐":
-    start_page()
-elif page == "📝국어":
-    quiz_page("📝국어")
-elif page == "🔢수학":
-    quiz_page("🔢수학")
-elif page == "✨통합교과":
-    quiz_page("✨통합교과")
-elif page == "📊점수 확인":
-    score_page()
+# 메뉴 정의 및 클릭 처리
+menu_items = ["2학년 공부를 돌아봐", "📝국어", "🔢수학", "✨통합교과", "📊점수 확인"]
 
+# 현재 선택된 메뉴를 세션 상태로 관리
+if "selected_menu" not in st.session_state:
+    st.session_state["selected_menu"] = menu_items[0]  # 기본값 설정
+
+# 메뉴 렌더링
+st.sidebar.title("메뉴")
+for item in menu_items:
+    item_class = "menu-item menu-item-selected" if item == st.session_state["selected_menu"] else "menu-item"
+    if st.sidebar.markdown(
+        f'<div class="{item_class}" onclick="window.location.reload();">{item}</div>', unsafe_allow_html=True
+    ):
+        st.session_state["selected_menu"] = item
+
+# 선택된 메뉴에 따른 페이지 라우팅
+if st.session_state["selected_menu"] == "2학년 공부를 돌아봐":
+    start_page()
+elif st.session_state["selected_menu"] == "📝국어":
+    quiz_page("📝국어")
+elif st.session_state["selected_menu"] == "🔢수학":
+    quiz_page("🔢수학")
+elif st.session_state["selected_menu"] == "✨통합교과":
+    quiz_page("✨통합교과")
+elif st.session_state["selected_menu"] == "📊점수 확인":
+    score_page()
