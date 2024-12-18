@@ -7,6 +7,22 @@ font_path = "NanumGothic.ttf"  # Windows의 일반적인 경로
 font_manager.fontManager.addfont(font_path)
 rc('font', family='NanumGothic')
 
+# 페이지 색상 설정 (연한 노란색)
+st.markdown(
+    """
+    <style>
+    body {
+        background-color: #fffacd; /* 연한 노란색 */
+    }
+    .sidebar .sidebar-content {
+        background-color: #fffacd;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+
 # 점수 관리: 세션 상태를 활용해 안정적으로 점수를 저장/로드
 if "results" not in st.session_state:
     st.session_state["results"] = {}
@@ -21,7 +37,7 @@ def reset_results():
     
 # 과목별 퀴즈
 quiz_data = {
-    "통합교과": [
+    "✨통합교과": [
         {"question": "훈민정음을 만든 사람은?", "options": ["세종대왕", "이순신", "강감찬"], "answer": "세종대왕"},
         {"question": "인도의 수도는?", "options": ["뉴델리", "도쿄", "베이징"], "answer": "뉴델리"},
         {"question": "다음 중 발명품이 아닌 것은?", "options": ["컴퓨터", "단풍나무", "연필", "칫솔"], "answer": "단풍나무"},
@@ -33,7 +49,7 @@ quiz_data = {
         {"question": "중국 전통의상의 이름은?", "options": ["치파오", "기모노", "한복"], "answer": "치파오"},
         {"question": "우리 학교가 있는 구의 이름은?","options":["강서구", "양천구", "광진구"],"answer":"양천구"}
     ],
-    "수학": [
+    "🔢수학": [
         {"question": "사탕을 보미는 4개의 3배, 희주는 3개의 5배만큼 가지고 있습니다. 두 사람이 가지고 있는 사탕은 모두 몇 개인가요?", "options": ["27개", "30개", "33개"], "answer": "27개"},
         {"question": "아버지의 나이는 38세이고 나의 나이는 9살입니다. 나는 아버지보다 몇 살 더 적을까요?", "options": ["29살", "27살", "30살"], "answer": "29살"},
         {"question": "100이 7개, 10이 5개, 1이 8개인 수는 무엇인가요?", "options": ["758", "785", "857"], "answer": "758"},
@@ -42,10 +58,10 @@ quiz_data = {
         {"question": "1m는 몇 cm입니까?", "options": ["100cm", "10cm", "1000cm"], "answer": "100cm"},
         {"question": "6572부터 100씩 5번 뛰어 센 수는 얼마일까요?", "options": ["7072", "7272", "7172"], "answer": "7072"},
         {"question": "곱셈식을 계산하세요. 8x0=?", "options": ["0", "8", "1"], "answer": "0"},
-        {"question": "2일은 몇 시간인가요?","options":["24시간","48시간","50시간"],"answer":"48시간간"},
+        {"question": "2일은 몇 시간인가요?","options":["24시간","48시간","50시간"],"answer":"48시간"},
         {"question": "곱셈식을 계산하세요.6x7=", "options":["35","28","42"],"answer":"42"}
     ],
-        "국어": [
+        "📝국어": [
         {"question": "장갑산에 놀러간 장갑친구들이 낭떠러지에 떨어졌을 때 모두를 구한 장갑은?", "options": ["비닐장갑", "면장갑", "가죽장갑"], "answer": "비닐장갑"},
         {"question": "그림책, 만화, 뉴스, 광고, 웹툰, 에니메이션, 영화를 (       )라고 합니다.", "options": ["책","매체","생각"], "answer": "매체"},
         {"question": "여러 사람의 이익을 목적으로 하는 광고를 (    )라고 합니다.", "options": ["가게광고", "상품광고", "공익광고"],"answer": "공익광고"},
