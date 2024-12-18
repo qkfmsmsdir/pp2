@@ -205,7 +205,7 @@ menu_items = ["2학년 공부를 돌아봐", "📝국어", "🔢수학", "✨통
 if "selected_menu" not in st.session_state:
     st.session_state["selected_menu"] = menu_items[0]
 
-st.sidebar.title("선배가 알려주는 초 2 생활 꿀팁🍯‧₊˚")
+st.sidebar.title("초 2 생활 꿀팁🍯‧₊˚")
 for item in menu_items:
     button_clicked = st.sidebar.button(item, key=item)
     if button_clicked:
