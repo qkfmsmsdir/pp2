@@ -7,8 +7,34 @@ font_path = "NanumGothic.ttf"  # Windows의 일반적인 경로
 font_manager.fontManager.addfont(font_path)
 rc('font', family='NanumGothic')
 
+# 페이지 색상 설정 (연한 노란색 배경, 사이드바 포함)
+st.markdown(
+    """
+  <style>
+    /* 사이드바 전체 배경 */
+    [data-testid="stSidebar"] {
+        background-color: #fffacd !important; /* 연한 노란색 */
+    }
 
-# 점수 관리: 세션 상태를 활용해 안정적으로 점수를 저장/로드
+    /* 사이드바 텍스트 스타일 */
+    [data-testid="stSidebar"] .css-ahz0ki {
+        font-size: 18px !important; /* 글씨 크기 */
+        line-height: 2 !important; /* 줄 간격 */
+        color: black !important; /* 글씨 색상 */
+    }
+
+    /* 사이드바 제목 텍스트 */
+    [data-testid="stSidebar"] .css-10trblm {
+        font-size: 20px !important; /* 제목 크기 */
+        font-weight: bold; /* 굵게 표시 */
+        color: black !important; /* 제목 색상 */
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+# 점수 관리
 if "results" not in st.session_state:
     st.session_state["results"] = {}
 
