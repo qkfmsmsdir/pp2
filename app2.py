@@ -10,17 +10,23 @@ rc('font', family='NanumGothic')
 # 페이지 색상 설정 (연한 노란색 배경, 사이드바 포함)
 st.markdown(
     """
-    <style>
-    /*사이드바 배경 색상*/
+   <style>
+    /* 사이드바 배경색 */
     [data-testid="stSidebar"] {
-        background-color: #fffacd
+        background-color: #fffacd !important; /* 연한 노란색 */
     }
 
-   /* 사이드바 글씨 크기 및 줄 간격 */
+    /* 사이드바 글씨 크기 및 줄간격 */
     [data-testid="stSidebar"] .css-1v3fvcr {
-        font-size: 50px; /* 글씨 크기 */
-        line-height: 3; /* 줄 간격 */
-        color: blue; /* 글씨 색상 */
+        font-size: 18px; /* 글씨 크기 */
+        line-height: 1.8; /* 줄 간격 */
+        color: black; /* 텍스트 색상 */
+    }
+    
+    /* 사이드바 헤더 스타일 */
+    [data-testid="stSidebar"] h1, [data-testid="stSidebar"] h2, [data-testid="stSidebar"] h3 {
+        font-size: 20px; /* 사이드바 제목 글씨 크기 */
+        color: black;
     }
     </style>
     """,
