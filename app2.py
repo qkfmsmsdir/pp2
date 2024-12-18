@@ -197,8 +197,8 @@ def score_page():
     unsafe_allow_html=True
 )
 
-    st.subheader("질문 및 답변")
-    st.markdown('<div class="question-text">1. 어떤 과목의 문제가 가장 어려웠나요?</div>', unsafe_allow_html=True)
+    st.subheader("🤓후배들을 위해 한 걸음 더")
+    st.markdown('<div class="question-text">1. 어떤 과목이 가장 어려웠나요?</div>', unsafe_allow_html=True)
     question1 = st.text_area("", key="question1")
     st.markdown('<div class="question-text">2. 후배들이 그 과목을 잘 공부하려면 어떤 도움이 필요할까요?</div>', unsafe_allow_html=True)
     question2 = st.text_area("", key="question2")
