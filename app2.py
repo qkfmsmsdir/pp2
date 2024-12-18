@@ -8,6 +8,8 @@ font_path = "NanumGothic.ttf"
 font_manager.fontManager.addfont(font_path)
 rc('font', family='NanumGothic')
 
+st.set_page_config(layout="wide")
+
 # 점수 관리
 if "results" not in st.session_state:
     st.session_state["results"] = {}
