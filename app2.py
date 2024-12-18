@@ -197,18 +197,17 @@ def score_page():
     unsafe_allow_html=True
 )
 
-        st.subheader("질문 및 답변")
-        st.markdown('<div class="question-text">1. 어떤 과목의 문제가 가장 어려웠나요?</div>', unsafe_allow_html=True)
-        question1 = st.text_area("", key="question1")
-
-        st.markdown('<div class="question-text">2. 후배들이 그 과목을 잘 공부하려면 어떤 도움이 필요할까요?</div>', unsafe_allow_html=True)
-        question2 = st.text_area("", key="question2")
+    st.subheader("질문 및 답변")
+    st.markdown('<div class="question-text">1. 어떤 과목의 문제가 가장 어려웠나요?</div>', unsafe_allow_html=True)
+    question1 = st.text_area("", key="question1")
+    st.markdown('<div class="question-text">2. 후배들이 그 과목을 잘 공부하려면 어떤 도움이 필요할까요?</div>', unsafe_allow_html=True)
+    question2 = st.text_area("", key="question2")
         # 답변 제출 버튼
-        if st.button("답변 제출"):
-           st.success("답변이 제출되었습니다.")
-           st.write("### 제출된 답변:")
-           st.write(f"1. {question1}")
-           st.write(f"2. {question2}")
+    if st.button("답변 제출"):
+       st.success("답변이 제출되었습니다.")
+       st.write("### 제출된 답변:")
+       st.write(f"1. {question1}")
+       st.write(f"2. {question2}")
 
 
 
